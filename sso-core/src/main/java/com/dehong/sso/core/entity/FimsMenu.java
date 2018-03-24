@@ -52,7 +52,7 @@ public class FimsMenu {
 	/** 更新次数*/
 	@Version
 	@Column(name = "UPDATE_COUNT")
-	private BigDecimal UpdateCount;
+	private BigDecimal updateCount;
 
 	public String getMenuId() {
 		return menuId;
@@ -118,19 +118,21 @@ public class FimsMenu {
 		this.deleteTime = deleteTime;
 	}
 
-	public BigDecimal getUpdateCount() {
-		return UpdateCount;
+	public BigDecimal getUpdateCount()
+	{
+		return updateCount;
 	}
 
-	public void setUpdateCount(BigDecimal updateCount) {
-		UpdateCount = updateCount;
+	public void setUpdateCount(BigDecimal updateCount)
+	{
+		this.updateCount = updateCount;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "FimsMenu [menuId=" + menuId + ", menuName=" + menuName + ", desc=" + desc + ", parentId=" + parentId
 				+ ", path=" + path + ", deleteFlag=" + deleteFlag + ", createTime=" + createTime + ", updateTime="
-				+ updateTime + ", deleteTime=" + deleteTime + ", UpdateCount=" + UpdateCount + "]";
+				+ updateTime + ", deleteTime=" + deleteTime + ", updateCount=" + updateCount + "]";
 	}
 
 	public String getPath() {

@@ -20,7 +20,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @ComponentScan(basePackages = "com.dehong.sso.core", 
 	includeFilters = { @Filter(value = Configuration.class) }, 
 	excludeFilters = { @Filter(value = Controller.class) })
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:settings.properties")
 public class AppConfig 
 {
 	
@@ -44,7 +44,7 @@ public class AppConfig
 	public static PropertyPlaceholderConfigurer loadProperties() 
 	{
 		PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
-		ClassPathResource resource = new ClassPathResource("application.properties");
+		ClassPathResource resource = new ClassPathResource("settings.properties");
 		ClassPathResource mqResource = new ClassPathResource("mq.properties");
 		configurer.setLocations(resource,mqResource);
 		configurer.setIgnoreResourceNotFound(true);

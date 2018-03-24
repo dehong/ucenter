@@ -27,8 +27,8 @@ public class MainApp
 		 List<FimsMenu> list = entityDao.selectByCondition(FimsMenu.class, null);
 		 FimsMenu fimsMenu = entityDao.selectById(FimsMenu.class, "M001");
 		 
-		 fimsMenu.setMenuName("身份管理2");
-		 entityDao.update(fimsMenu);
+		 //fimsMenu.setMenuName("身份管理2");
+		 //entityDao.update(fimsMenu);
 		 
 		 System.out.println(list);
 		 

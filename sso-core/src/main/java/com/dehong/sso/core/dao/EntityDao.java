@@ -5,25 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.seasar.doma.AnnotateWith;
-import org.seasar.doma.Annotation;
-import org.seasar.doma.AnnotationTarget;
 import org.seasar.doma.Dao;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.builder.DeleteBuilder;
 import org.seasar.doma.jdbc.builder.InsertBuilder;
 import org.seasar.doma.jdbc.builder.SelectBuilder;
 import org.seasar.doma.jdbc.builder.UpdateBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+import com.dehong.sso.core.annotation.InjectConfig;
 import com.dehong.sso.core.config.SpringDomaConfig;
 import com.dehong.sso.core.exception.DBConcurrencyException;
 
 
 @Dao(config = SpringDomaConfig.class)
-@AnnotateWith(annotations = { @Annotation(target = AnnotationTarget.CLASS, type = Component.class),
-		@Annotation(target = AnnotationTarget.CONSTRUCTOR, type = Autowired.class) })
+@InjectConfig
 public interface EntityDao {
 	default <T> T selectById(Class<T> entityClass, Object id){
 		Config config = Config.get(this);
