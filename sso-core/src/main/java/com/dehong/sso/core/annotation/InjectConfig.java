@@ -7,16 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
-/** 
- * 
- * @author   created by dehong
- * @date     2018年3月24日 下午9:36:27
- * 
+/**
+ * @author created by dehong
+ * @date 2018年3月24日 下午9:36:27
  */
 
-@AnnotateWith(annotations = { @Annotation(target = AnnotationTarget.CLASS, type = Component.class),
-		@Annotation(target = AnnotationTarget.CONSTRUCTOR, type = Autowired.class) })
-public @interface InjectConfig
-{
+@AnnotateWith(annotations = {@Annotation(target = AnnotationTarget.CLASS, type = Component.class),
+        @Annotation(target = AnnotationTarget.CONSTRUCTOR, type = Autowired.class)})
+public @interface InjectConfig {
 
 }

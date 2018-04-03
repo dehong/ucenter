@@ -1,4 +1,4 @@
-package com.dehong.sso.ssoboot;
+package com.dehong.sso.boot;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.dehong.sso.ssoboot;
+package com.dehong.sso.boot;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

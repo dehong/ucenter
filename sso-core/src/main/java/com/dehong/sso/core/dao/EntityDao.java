@@ -19,65 +19,65 @@ import com.dehong.sso.core.exception.DBConcurrencyException;
 @Dao(config = SpringDomaConfig.class)
 @InjectConfig
 public interface EntityDao {
-	default <T> T selectById(Class<T> entityClass, Object id){
-		Config config = Config.get(this);
+    default <T> T selectById(Class<T> entityClass, Object id) {
+        Config config = Config.get(this);
         SelectBuilder builder = SelectBuilder.newInstance(config);
         EntityDaoHelper helper = EntityDaoHelper.getHelper(entityClass);
         helper.setSelectBuilderById(builder, id);
         return builder.getEntitySingleResult(entityClass);
-	}
-	
-	default <T> List<T> selectByCondition(Class<T> entityClass, Map<String, Object> condition){
-		Config config = Config.get(this);
+    }
+
+    default <T> List<T> selectByCondition(Class<T> entityClass, Map<String, Object> condition) {
+        Config config = Config.get(this);
         SelectBuilder builder = SelectBuilder.newInstance(config);
         EntityDaoHelper helper = EntityDaoHelper.getHelper(entityClass);
         condition = condition == null ? new HashMap<>() : condition;
         helper.setSelectBuilder(builder, condition);
         return builder.getEntityResultList(entityClass);
-	}
-	
-	default int updatePartially(Object entity, String... proNames){
-		Config config = Config.get(this);
+    }
+
+    default int updatePartially(Object entity, String... proNames) {
+        Config config = Config.get(this);
         UpdateBuilder builder = UpdateBuilder.newInstance(config);
         EntityDaoHelper helper = EntityDaoHelper.getHelper(entity.getClass());
         helper.setUpdateBuilder(builder, entity, proNames);
         int affectRowCount = builder.execute();
-        if(affectRowCount <= 0){
-        	throw new DBConcurrencyException();
+        if (affectRowCount <= 0) {
+            throw new DBConcurrencyException();
         }
         return affectRowCount;
-	}
-	
-	default int update(Object entity){
-		return updatePartially(entity);
-	}
-	
-	default int insert(Object entity){
-		Config config = Config.get(this);
-		InsertBuilder builder = InsertBuilder.newInstance(config);
-		EntityDaoHelper helper = EntityDaoHelper.getHelper(entity.getClass());
-		helper.setInsertBuilder(builder, entity);
-		return builder.execute();
-	}
-	
-	default <T> int insertAll(List<T> entities){
-		if(entities == null || entities.isEmpty()) return 0;
-		Config config = Config.get(this);
-		EntityDaoHelper helper = EntityDaoHelper.getHelper(entities.get(0).getClass());
-		int count = 0;
-		for(Object entity : entities){
-			InsertBuilder builder = InsertBuilder.newInstance(config);
-			helper.setInsertBuilder(builder, entity);
-			count += builder.execute();
-		}
-		return count;
-	}
-	
-	default int delete(Object entity){
-		Config config = Config.get(this);
-		DeleteBuilder builder = DeleteBuilder.newInstance(config);
-		EntityDaoHelper helper = EntityDaoHelper.getHelper(entity.getClass());
-		helper.setDeleteBuilder(builder, entity);
-		return builder.execute();
-	}
+    }
+
+    default int update(Object entity) {
+        return updatePartially(entity);
+    }
+
+    default int insert(Object entity) {
+        Config config = Config.get(this);
+        InsertBuilder builder = InsertBuilder.newInstance(config);
+        EntityDaoHelper helper = EntityDaoHelper.getHelper(entity.getClass());
+        helper.setInsertBuilder(builder, entity);
+        return builder.execute();
+    }
+
+    default <T> int insertAll(List<T> entities) {
+        if (entities == null || entities.isEmpty()) return 0;
+        Config config = Config.get(this);
+        EntityDaoHelper helper = EntityDaoHelper.getHelper(entities.get(0).getClass());
+        int count = 0;
+        for (Object entity : entities) {
+            InsertBuilder builder = InsertBuilder.newInstance(config);
+            helper.setInsertBuilder(builder, entity);
+            count += builder.execute();
+        }
+        return count;
+    }
+
+    default int delete(Object entity) {
+        Config config = Config.get(this);
+        DeleteBuilder builder = DeleteBuilder.newInstance(config);
+        EntityDaoHelper helper = EntityDaoHelper.getHelper(entity.getClass());
+        helper.setDeleteBuilder(builder, entity);
+        return builder.execute();
+    }
 }

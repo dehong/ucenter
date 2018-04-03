@@ -1,0 +1,16 @@
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  aop:
+    auto: true
+
+#Redis
+redis:
+  shiro:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 0
+    password:

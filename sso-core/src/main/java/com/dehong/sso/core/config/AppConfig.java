@@ -17,16 +17,16 @@ import org.springframework.stereotype.Controller;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com.dehong.sso.core", 
-	includeFilters = { @Filter(value = Configuration.class) }, 
+@ComponentScan(basePackages = "com.dehong.sso.core",
+	includeFilters = { @Filter(value = Configuration.class) },
 	excludeFilters = { @Filter(value = Controller.class) })
 @PropertySource("classpath:settings.properties")
-public class AppConfig 
+public class AppConfig
 {
-	
+
    @Autowired
    private Environment env;
-   
+
 	@Bean("dataSource")
     public DataSource getDataSource() {
         DruidDataSource dataSource = new DruidDataSource();
@@ -35,13 +35,13 @@ public class AppConfig
         dataSource.setUsername(env.getProperty("jdbc.username"));
         dataSource.setPassword(env.getProperty("jdbc.password"));
         return dataSource;
-    }   
-	
+    }
+
 	/**
 	 * 必须加上static
 	 */
 	@Bean
-	public static PropertyPlaceholderConfigurer loadProperties() 
+	public static PropertyPlaceholderConfigurer loadProperties()
 	{
 		PropertyPlaceholderConfigurer configurer = new PropertyPlaceholderConfigurer();
 		ClassPathResource resource = new ClassPathResource("settings.properties");
@@ -50,17 +50,17 @@ public class AppConfig
 		configurer.setIgnoreResourceNotFound(true);
 		return configurer;
 	}
-	
+
 	 @Bean
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-	
-	
+
+
 	@Bean
 	public SpringDomaConfig domaConfig()
 	{
 		return new SpringDomaConfig();
 	}
-	
+
 }
