@@ -1,6 +1,7 @@
 package com.dehong.sso.boot.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dehong.sso.core.dto.LoginDto;
 import com.dehong.sso.core.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -9,37 +10,33 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by Administrator on 2017/12/11.
+ * Created by dehong on 2018-04-06.
  */
-@Controller
-public class ShiroController {
 
-    /**
-     * 登录方法
-     * @param userInfo
-     * @return
-     */
-    @RequestMapping(value = "/ajaxLogin", method = RequestMethod.POST)
+@RestController
+@RequestMapping("/api")
+public class LoginController {
+
+    @RequestMapping(value = "/login/account", method = RequestMethod.POST)
     @ResponseBody
-    public String ajaxLogin(User userInfo) {
+    public String ajaxLogin(@RequestBody LoginDto loginDto) {
         JSONObject jsonObject = new JSONObject();
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUserName(), userInfo.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(loginDto.getUserName(), loginDto.getPassword());
         try {
             subject.login(token);
             jsonObject.put("token", subject.getSession().getId());
             jsonObject.put("msg", "登录成功");
+            jsonObject.put("status", "ok");
+            jsonObject.put("type", "account");
+            jsonObject.put("currentAuthority", "admin");
         } catch (IncorrectCredentialsException e) {
             jsonObject.put("msg", "密码错误");
         } catch (ExcessiveAttemptsException e){
@@ -54,29 +51,13 @@ public class ShiroController {
         return jsonObject.toString();
     }
 
-    /**
-     * 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
-     * @return
-     */
-    @RequestMapping(value = "/unauth")
-    @ResponseBody
-    public Object unauth(HttpServletRequest req, HttpServletResponse resp) {
-        Subject subject = SecurityUtils.getSubject();
-        subject.getSession().getId();
-        Map<String, Object> map = new HashMap<String, Object>();
-        resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        map.put("code", "1000000");
-        map.put("msg", "未登录");
-        return map;
-    }
-
-    @RequestMapping(value = "/403")
-    public String page403() {
-        return "403";
-    }
-
-    @RequestMapping(value = "/login")
-    public String login() {
-        return "login";
+    @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
+    public String getCurrentUser(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name", "王德红");
+        jsonObject.put("avatar", "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png");
+        jsonObject.put("userid", "00000001");
+        jsonObject.put("notifyCount", "12");
+        return jsonObject.toString();
     }
 }

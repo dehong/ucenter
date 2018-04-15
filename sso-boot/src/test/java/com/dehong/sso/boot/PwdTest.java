@@ -8,8 +8,8 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 public class PwdTest {
     public static void main(String[] args) {
         String algorithmName = "md5";
-        String username = "test";
-        String password = "test";
+        String username = "admin";
+        String password = "admin123";
         String salt1 = username;
         String salt2 = "123";//new SecureRandomNumberGenerator().nextBytes().toHex();
         int hashIterations = 1;

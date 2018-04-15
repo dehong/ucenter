@@ -2,9 +2,14 @@ package com.dehong.sso.core.service.impl;
 
 import com.dehong.sso.core.dao.EntityDao;
 import com.dehong.sso.core.dao.UserDao;
+import com.dehong.sso.core.dto.UserDto;
+import com.dehong.sso.core.dto.UserSearchDto;
 import com.dehong.sso.core.entity.User;
+import com.dehong.sso.core.entity.UserInfo;
 import com.dehong.sso.core.service.UserService;
+import com.dehong.sso.core.util.PageOptionsUtil;
 import com.dehong.sso.core.util.UniqueIdUtil;
+import org.seasar.doma.jdbc.SelectOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,9 +33,9 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User selectById(Long id) {
-        User user = entityDao.selectById(User.class, id);
-        return user;
+    public UserDto selectById(Long id) {
+        UserDto userDto = userDao.selectUserById(id);
+        return userDto;
     }
 
     @Override
@@ -47,6 +52,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> selectUserList(UserSearchDto userSearchDto, SelectOptions options) {
+        List<UserDto> userDtos = userDao.selectUserList(userSearchDto, options);
+        return userDtos;
+    }
+
+    @Override
     public void insert(User user) {
         long id = UniqueIdUtil.getUniqueID();
         user.setId(id);
@@ -55,9 +66,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(User user) {
+    public void updateUser(User user) {
         entityDao.update(user);
 
+    }
+
+    @Override
+    public void updateUserInfo(UserInfo userInfo) {
+        entityDao.update(userInfo);
     }
 
     @Override

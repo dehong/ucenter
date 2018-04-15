@@ -2,6 +2,8 @@ package com.dehong.sso.core.dto;
 
 
 import com.dehong.sso.core.annotation.TransformField;
+import org.seasar.doma.Entity;
+import org.seasar.doma.jdbc.entity.NamingType;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,12 +12,20 @@ import java.time.LocalDateTime;
 /**
  * Created by dehong on 2018-03-25.
  */
+
+@Entity(naming = NamingType.SNAKE_UPPER_CASE)
 public class UserDto implements Serializable {
     private static final long serialVersionUID = 2073895599461463432L;
     private Long id;
 
     /**  */
     private Long uId;
+
+    private String code;
+    private String name;
+    private String phone;
+    private String dept;
+    private Integer status;
 
     /**  */
     private String userName;
@@ -87,6 +97,82 @@ public class UserDto implements Serializable {
      */
     public void setUId(Long uId) {
         this.uId = uId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getuId() {
+        return uId;
+    }
+
+    public void setuId(Long uId) {
+        this.uId = uId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Boolean getOnline() {
+        return isOnline;
+    }
+
+    public void setOnline(Boolean online) {
+        isOnline = online;
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public Boolean getEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(Boolean enable) {
+        isEnable = enable;
     }
 
     /**
